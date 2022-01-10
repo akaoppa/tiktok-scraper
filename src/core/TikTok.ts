@@ -1073,13 +1073,38 @@ export class TikTokScraper extends EventEmitter {
         };
         try {
             const response = await this.request<string>(options);
-            const breakResponse = response
+
+            if (response.includes("__NEXT_DATA__")){
+                const breakResponse = response
                 .split(/<script id="__NEXT_DATA__" type="application\/json" nonce="[\w-]+" crossorigin="anonymous">/)[1]
                 .split(`</script>`)[0];
-            if (breakResponse) {
-                const userMetadata: WebHtmlUserMetadata = JSON.parse(breakResponse);
-                return userMetadata.props.pageProps.userInfo;
+                if (breakResponse) {
+                    const userMetadata: WebHtmlUserMetadata = JSON.parse(breakResponse);
+                    return userMetadata.props.pageProps.userInfo;
+                }
             }
+
+            if (response.includes("SIGI_STATE")) {
+                // Sometimes you may receive a state in different format, so we should parse it too
+                // New format - https://pastebin.com/WLUpL0ei
+                const breakResponse = response
+                    .split("window['SIGI_STATE']=")[1]
+                    .split(";window['SIGI_RETRY']=")[0];
+
+                  const userProps = JSON.parse(breakResponse);
+                  const statsData = Object.values(userProps.ItemModule)[0].authorStats;
+
+                  const usersTik = Object.values(userProps.UserModule.users)[0];
+                  const objectGlob = {user: usersTik, stats: statsData}
+                  //console.log(objectGlob);
+
+                return objectGlob as UserMetadata;
+
+            }
+
+
+
+            
         } catch (err) {
             if (err.statusCode === 404) {
                 throw new Error('User does not exist');
