@@ -1,7 +1,4 @@
-/* eslint-disable no-underscore-dangle */
-
 import { DuetInfo } from '.';
-
 export interface ItemInfos {
     id: string;
     text: string;
@@ -29,7 +26,6 @@ export interface ItemInfos {
     isActivityItem: boolean;
     warnInfo: any[];
 }
-
 export interface AuthorInfos {
     secUid: string;
     userId: string;
@@ -42,7 +38,6 @@ export interface AuthorInfos {
     coversLarger: string[];
     isSecret: boolean;
 }
-
 export interface MusicInfos {
     musicId: string;
     musicName: string;
@@ -54,7 +49,6 @@ export interface MusicInfos {
     coversLarger: string[];
     posts: number;
 }
-
 export interface Challenge {
     challengeId: string;
     challengeName: string;
@@ -67,7 +61,6 @@ export interface Challenge {
     views: string;
     splitTitle: string;
 }
-
 export interface AuthorStats {
     followingCount: number;
     followerCount: number;
@@ -75,7 +68,6 @@ export interface AuthorStats {
     videoCount: number;
     diggCount: number;
 }
-
 export interface Item {
     itemInfos: ItemInfos;
     authorInfos: AuthorInfos;
@@ -83,7 +75,6 @@ export interface Item {
     challengeInfoList: Challenge[];
     authorStats: AuthorStats;
 }
-
 export interface RequestQuery {
     id?: string;
     musicID?: string;
@@ -140,7 +131,6 @@ export interface RequestQuery {
     device_platform?: string;
     _signature?: string;
 }
-
 export interface VideoProps {
     props: {
         pageProps: {
@@ -148,10 +138,6 @@ export interface VideoProps {
         };
     };
 }
-
-/**
- * New API
- */
 export interface ItemListData {
     statusCode: number;
     items: FeedItems[];
@@ -161,12 +147,12 @@ export interface ItemListData {
     minCursor: string;
     cursor: string;
 }
-
 export interface VideoMetadata {
     statusCode: number;
-    itemInfo: { itemStruct: FeedItems };
+    itemInfo: {
+        itemStruct: FeedItems;
+    };
 }
-
 export interface FeedItems {
     id: string;
     desc: string;
@@ -184,19 +170,17 @@ export interface FeedItems {
         downloadAddr: string;
         shareCover: string[];
     };
-    //author: {
-        authorId: string;
-        author: string;
-        nickname: string;
-        avatarThumb: string;
-        avatarMedium: string;
-        avatarLarger: string;
-        signature: string;
-        privateItem: boolean;
-        authorSecId: string;
-        relation: number;
-        openFavorite: boolean;
- //   };
+    authorId: string;
+    author: string;
+    nickname: string;
+    avatarThumb: string;
+    avatarMedium: string;
+    avatarLarger: string;
+    signature: string;
+    privateItem: boolean;
+    authorSecId: string;
+    relation: number;
+    openFavorite: boolean;
     music: {
         id: string;
         title: string;
@@ -259,17 +243,12 @@ export interface FeedItems {
         ID: string;
     }[];
 }
-
-/**
- * __
- */
 export interface TikTokMetadata {
     statusCode: number;
     userInfo: UserMetadata;
     challengeInfo: HashtagMetadata;
     musicInfo: MusicMetadata;
 }
-
 export interface MusicMetadata {
     music: {
         id: string;
@@ -314,7 +293,6 @@ export interface MusicMetadata {
         desc: string;
     };
 }
-
 export interface UserMetadata {
     user: {
         id: string;
@@ -348,7 +326,6 @@ export interface UserMetadata {
         desc: string;
     };
 }
-
 export interface HashtagMetadata {
     challenge: {
         id: string;
@@ -362,9 +339,11 @@ export interface HashtagMetadata {
         coverLarger: string;
         isCommerce: boolean;
     };
-    stats: { videoCount: number; viewCount: number };
+    stats: {
+        videoCount: number;
+        viewCount: number;
+    };
 }
-
 export interface WebHtmlUserMetadata {
     props: {
         pageProps: {
