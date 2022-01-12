@@ -8,7 +8,7 @@ declare const _default: {
         music: number;
         trend: number;
     };
-    verifyFp: () => any;
+    verifyFp: () => never;
     userAgent: () => string;
 };
 export = _default;

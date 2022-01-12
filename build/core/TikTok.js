@@ -727,10 +727,10 @@ class TikTokScraper extends events_1.EventEmitter {
                     .split("window['SIGI_STATE']=")[1]
                     .split(";window['SIGI_RETRY']=")[0];
                 const userProps = JSON.parse(breakResponse);
-                var statsData = Object.values(userProps.ItemModule)[0]["authorStats"];
+                const statsData = Object.values(userProps.UserModule.stats)[0];
                 const usersTik = Object.values(userProps.UserModule.users)[0];
-                const objectGlob = { user: usersTik, stats: statsData };
-                return objectGlob;
+                const videoData = { user: usersTik, stats: statsData };
+                return videoData;
             }
         }
         catch (err) {

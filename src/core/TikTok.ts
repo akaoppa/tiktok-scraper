@@ -1095,13 +1095,11 @@ export class TikTokScraper extends EventEmitter {
                     .split(";window['SIGI_RETRY']=")[0];
 
                   const userProps = JSON.parse(breakResponse);
-                  var statsData = Object.values(userProps.ItemModule)[0]["authorStats"];
-
+                  const statsData = Object.values(userProps.UserModule.stats)[0];
                   const usersTik = Object.values(userProps.UserModule.users)[0];
-                  const objectGlob = {user: usersTik, stats: statsData}
-                  //console.log(objectGlob);
+                  const videoData = {user: usersTik, stats: statsData}
 
-                return objectGlob as UserMetadata;
+                  return videoData as UserMetadata;
 
             }
 
