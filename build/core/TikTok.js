@@ -745,6 +745,39 @@ class TikTokScraper extends events_1.EventEmitter {
         }
         throw new Error(`Can't extract user metadata from the html page. Make sure that user does exist and try to use proxy`);
     }
+    async getUserVideoInfo() {
+        if (!this.input) {
+            throw new Error(`Username is missing`);
+        }
+        const options = {
+            method: 'GET',
+            uri: `https://www.tiktok.com/@${encodeURIComponent(this.input)}`,
+            json: true,
+        };
+        try {
+            const response = await this.request(options);
+            if (!response) {
+                throw new Error(`Can't extract user video meta data`);
+            }
+            if (response.includes("SIGI_STATE")) {
+                const breakResponse = response
+                    .split("window['SIGI_STATE']=")[1]
+                    .split(";window['SIGI_RETRY']=")[0];
+                const videoProps = JSON.parse(breakResponse);
+                const videoData = Object.values(videoProps.ItemModule)[0];
+                return videoData;
+            }
+        }
+        catch (err) {
+            if (err.statusCode === 404) {
+                throw new Error('User does not exist');
+            }
+            if (err instanceof Error) {
+                console.error(err.message);
+            }
+        }
+        throw new Error(`Can't extract user metadata from the html page. Make sure that user does exist and try to use proxy`);
+    }
     async getHashtagInfo() {
         if (!this.input) {
             throw new Error(`Hashtag is missing`);

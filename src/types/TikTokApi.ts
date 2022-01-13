@@ -349,6 +349,49 @@ export interface UserMetadata {
     };
 }
 
+export interface UserVideoMetadata {
+    author: string;
+    authorId: string;
+    authorSecId: string;
+    authorStats: {
+        followingCount: number;
+        followerCount: number;
+        heartCount: number;
+        videoCount: number;
+        diggCount: number;
+    };
+    challenges: {
+        id: string;
+        title: string;
+        desc: string;
+        profileThumb: string;
+        profileMedium: string;
+        profileLarger: string;
+        coverThumb: string;
+        coverMedium: string;
+        coverLarger: string;
+    }[];
+    stats: {
+        diggCount: number;
+        shareCount: number;
+        commentCount: number;
+        playCount: number;
+    };
+    video: {
+        id: string;
+        height: number;
+        width: number;
+        duration: number;
+        ratio: string;
+        cover: string;
+        originCover: string;
+        dynamicCover: string;
+        playAddr: string;
+        downloadAddr: string;
+        shareCover: string[];
+    };
+}
+
 export interface HashtagMetadata {
     challenge: {
         id: string;

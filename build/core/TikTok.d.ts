@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import { CookieJar } from 'request';
 import { EventEmitter } from 'events';
-import { PostCollector, TikTokConstructor, Result, MusicMetadata, UserMetadata, HashtagMetadata, Headers } from '../types';
+import { PostCollector, TikTokConstructor, Result, MusicMetadata, UserMetadata, UserVideoMetadata, HashtagMetadata, Headers } from '../types';
 import { Downloader } from '../core';
 export declare class TikTokScraper extends EventEmitter {
     private mainHost;
@@ -75,6 +75,7 @@ export declare class TikTokScraper extends EventEmitter {
     private getHashTagId;
     private getUserId;
     getUserProfileInfo(): Promise<UserMetadata>;
+    getUserVideoInfo(): Promise<UserVideoMetadata>;
     getHashtagInfo(): Promise<HashtagMetadata>;
     getMusicInfo(): Promise<MusicMetadata>;
     signUrl(): Promise<any>;

@@ -29,6 +29,7 @@ import {
     ItemListData,
     TikTokMetadata,
     UserMetadata,
+    UserVideoMetadata,
     HashtagMetadata,
     Headers,
     WebHtmlUserMetadata,
@@ -1102,6 +1103,53 @@ export class TikTokScraper extends EventEmitter {
                   const videoData = {user: usersTik, stats: statsData}
 
                   return videoData as UserMetadata;
+
+            }
+
+
+            
+        } catch (err) {
+            if (err.statusCode === 404) {
+                throw new Error('User does not exist');
+            }
+            if (err instanceof Error) {
+     console.error(err.message);
+  }
+        }
+        throw new Error(`Can't extract user metadata from the html page. Make sure that user does exist and try to use proxy`);
+    }
+
+    /**
+     * Get user video information
+     * @param {} username
+     */
+    public async getUserVideoInfo(): Promise<UserVideoMetadata> {
+        if (!this.input) {
+            throw new Error(`Username is missing`);
+        }
+        const options = {
+            method: 'GET',
+            uri: `https://www.tiktok.com/@${encodeURIComponent(this.input)}`,
+            json: true,
+        };
+        try {
+            const response = await this.request<string>(options);
+            if (!response) {
+                throw new Error(`Can't extract user video meta data`);
+            }
+
+
+            if (response.includes("SIGI_STATE")) {
+                // Sometimes you may receive a state in different format, so we should parse it too
+                // New format - https://pastebin.com/WLUpL0ei
+                const breakResponse = response
+                    .split("window['SIGI_STATE']=")[1]
+                    .split(";window['SIGI_RETRY']=")[0];
+
+                  const videoProps = JSON.parse(breakResponse);
+                
+                  const videoData = Object.values(videoProps.ItemModule)[0];
+                  return videoData as UserVideoMetadata;
 
             }
 
