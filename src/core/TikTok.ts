@@ -605,7 +605,9 @@ export class TikTokScraper extends EventEmitter {
                 }
                 this.validHeaders = true;
             }
+            console.log("getPostlol");
             const result = await this.scrapeData<ItemListData>(query);
+            console.log(result);
             if (result.statusCode !== 0) {
                 throw new Error(`Can't scrape more posts`);
             }
