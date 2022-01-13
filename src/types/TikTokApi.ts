@@ -350,7 +350,7 @@ export interface UserMetadata {
 }
 
 export interface UserVideoMetadata {
-    author: string;
+   /* author: string;
     authorId: string;
     authorSecId: string;
     authorStats: {
@@ -389,7 +389,8 @@ export interface UserVideoMetadata {
         playAddr: string;
         downloadAddr: string;
         shareCover: string[];
-    };
+    };*/
+    videos?: {};
 }
 
 export interface HashtagMetadata {
