@@ -13,6 +13,7 @@ import {
     ScrapeType,
     Result,
     UserMetadata,
+    UserVideoMetadata,
     HashtagMetadata,
     PostCollector,
     History,
@@ -172,6 +173,24 @@ export const getUserProfileInfo = async (input: string, options = {} as Options)
     const scraper = new TikTokScraper(contructor);
 
     const result = await scraper.getUserProfileInfo();
+    return result;
+};
+
+export const getUserVideoInfo = async (input: string, options = {} as Options): Promise<UserVideoMetadata> => {
+    if (options && typeof options !== 'object') {
+        throw new TypeError('Object is expected');
+    }
+
+    if (options?.proxyFile) {
+        options.proxy = await proxyFromFile(options?.proxyFile);
+    }
+    if (options?.sessionFile) {
+        options.sessionList = await sessionFromFile(options?.sessionFile);
+    }
+    const contructor: TikTokConstructor = { ...getInitOptions(), ...options, ...{ type: 'sinsgle_user' as ScrapeType, input } };
+    const scraper = new TikTokScraper(contructor);
+
+    const result = await scraper.getUserVideoInfo();
     return result;
 };
 
