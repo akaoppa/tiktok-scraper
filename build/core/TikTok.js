@@ -725,9 +725,10 @@ class TikTokScraper extends events_1.EventEmitter {
                 }
             }
             if (response.includes("SIGI_STATE")) {
-                const breakResponse = response
+                /*const breakResponse = response
                     .split("window['SIGI_STATE']=")[1]
-                    .split(";window['SIGI_RETRY']=")[0];
+                    .split(";window['SIGI_RETRY']=")[0];*/
+                const breakResponse = response.split('<script id="SIGI_STATE" type="application/json">')[1].split('</script>')[0];          
                 const userProps = JSON.parse(breakResponse);
                 const statsData = Object.values(userProps.UserModule.stats)[0];
                 const usersTik = Object.values(userProps.UserModule.users)[0];
@@ -760,9 +761,10 @@ class TikTokScraper extends events_1.EventEmitter {
                 throw new Error(`Can't extract user video meta data`);
             }
             if (response.includes("SIGI_STATE")) {
-                const breakResponse = response
+                /*const breakResponse = response
                     .split("window['SIGI_STATE']=")[1]
-                    .split(";window['SIGI_RETRY']=")[0];
+                    .split(";window['SIGI_RETRY']=")[0];*/
+                const breakResponse = response.split('<script id="SIGI_STATE" type="application/json">')[1].split('</script>')[0];          
                 const videoProps = JSON.parse(breakResponse);
                 const videoData = Object.values(videoProps.ItemModule);
                 const resultVideoData = { videos: videoData };
@@ -875,9 +877,11 @@ class TikTokScraper extends events_1.EventEmitter {
                 return videoData;
             }
             if (response.includes("SIGI_STATE")) {
-                const rawVideoMetadata = response
+               /* const rawVideoMetadata = response
                     .split("window['SIGI_STATE']=")[1]
-                    .split(";window['SIGI_RETRY']=")[0];
+                    .split(";window['SIGI_RETRY']=")[0];*/
+                const rawVideoMetadata = response.split('<script id="SIGI_STATE" type="application/json">')[1].split('</script>')[0];        
+   
                 const videoProps = JSON.parse(rawVideoMetadata);
                 const videoData = Object.values(videoProps.ItemModule)[0];
                 return videoData;

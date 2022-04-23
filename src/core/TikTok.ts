@@ -1093,10 +1093,10 @@ export class TikTokScraper extends EventEmitter {
             if (response.includes("SIGI_STATE")) {
                 // Sometimes you may receive a state in different format, so we should parse it too
                 // New format - https://pastebin.com/WLUpL0ei
-                const breakResponse = response
+                /*const breakResponse = response
                     .split("window['SIGI_STATE']=")[1]
-                    .split(";window['SIGI_RETRY']=")[0];
-
+                    .split(";window['SIGI_RETRY']=")[0];*/
+                const breakResponse = response.split('<script id="SIGI_STATE" type="application/json">')[1].split('</script>')[0];    
                   const userProps = JSON.parse(breakResponse);
                   const statsData = Object.values(userProps.UserModule.stats)[0];
                   const usersTik = Object.values(userProps.UserModule.users)[0];
@@ -1142,10 +1142,10 @@ export class TikTokScraper extends EventEmitter {
             if (response.includes("SIGI_STATE")) {
                 // Sometimes you may receive a state in different format, so we should parse it too
                 // New format - https://pastebin.com/WLUpL0ei
-                const breakResponse = response
+               /* const breakResponse = response
                     .split("window['SIGI_STATE']=")[1]
-                    .split(";window['SIGI_RETRY']=")[0];
-
+                    .split(";window['SIGI_RETRY']=")[0];*/
+                  const breakResponse = response.split('<script id="SIGI_STATE" type="application/json">')[1].split('</script>')[0];      
                   const videoProps = JSON.parse(breakResponse);
                 
                   const videoData = Object.values(videoProps.ItemModule);
@@ -1295,10 +1295,10 @@ export class TikTokScraper extends EventEmitter {
             if (response.includes("SIGI_STATE")) {
                 // Sometimes you may receive a state in different format, so we should parse it too
                 // New format - https://pastebin.com/WLUpL0ei
-                const rawVideoMetadata = response
+               /* const rawVideoMetadata = response
                     .split("window['SIGI_STATE']=")[1]
-                    .split(";window['SIGI_RETRY']=")[0];
-
+                    .split(";window['SIGI_RETRY']=")[0];*/
+                const rawVideoMetadata = response.split('<script id="SIGI_STATE" type="application/json">')[1].split('</script>')[0];        
                 const videoProps = JSON.parse(rawVideoMetadata);
                 const videoData = Object.values(videoProps.ItemModule)[0];
 
